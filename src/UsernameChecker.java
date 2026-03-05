@@ -18,7 +18,6 @@ public class UsernameChecker {
     public List<String> suggestAlternatives(String username) {
         List<String> suggestions = new ArrayList<>();
         int i = 1;
-
         while (suggestions.size() < 3) {
             String suggestion = username + i;
             if (!users.containsKey(suggestion)) {
@@ -26,34 +25,29 @@ public class UsernameChecker {
             }
             i++;
         }
-
-        String alt = username.replace("_", ".");
-        if (!users.containsKey(alt)) {
-            suggestions.add(alt);
-        }
-
         return suggestions;
     }
 
     public String getMostAttempted() {
-        String maxUser = null;
         int max = 0;
-
+        String maxUser = null;
         for (Map.Entry<String, Integer> entry : attempts.entrySet()) {
             if (entry.getValue() > max) {
                 max = entry.getValue();
                 maxUser = entry.getKey();
             }
         }
-
         return maxUser;
     }
 
+    // MAIN METHOD ADDED HERE
     public static void main(String[] args) {
         UsernameChecker checker = new UsernameChecker();
 
         System.out.println(checker.checkAvailability("purva"));
         System.out.println(checker.checkAvailability("apoorv"));
+        System.out.println(checker.checkAvailability("john_doe"));
+
         System.out.println(checker.suggestAlternatives("john_doe"));
         System.out.println(checker.getMostAttempted());
     }
